@@ -1,0 +1,39 @@
+classDiagram
+direction LR
+
+class SystemeFiltrageContenu {
+    +statut: string
+}
+
+class Livre {
+    +identifiant : string
+    +titre_normalise : string
+    +auteur : string
+    +edition : string
+}
+
+class Blacklist {
+    +identifiantsInterdits: List<string>
+}
+
+class APIExterne {
+    +endpoint: URL
+}
+
+class LLM {
+    +modele: string
+}
+
+class RapportModeration {
+    +timestamp: Date
+    +raison: string
+}
+
+SystemeFiltrageContenu "1" -- "1" Blacklist : utilise
+SystemeFiltrageContenu "1" -- "1" RapportModeration : genere
+SystemeFiltrageContenu "1" -- "1" APIExterne : appelle pour maj
+SystemeFiltrageContenu "1" -- "1" LLM : appelle pour maj
+SystemeFiltrageContenu "1" -- "*" Livre : traite
+
+APIExterne "1" --> "1" LLM : fournit données
+RapportModeration ..> SystemeFiltrageContenu : (Log)

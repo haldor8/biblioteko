@@ -1,0 +1,20 @@
+classDiagram
+direction TB
+
+class Livre {
+  +identifiant : string
+  +titre_normalise : string
+  +auteur : string
+  +edition : string
+}
+
+class FichierIndexation {
+  +titre : string
+  +auteur : string
+  +edition : string
+  +nombre_pages : int
+  +sujet : string
+  +chemin_dossier : string
+}
+
+Livre --> FichierIndexation : "est décrit par"

@@ -1,0 +1,17 @@
+classDiagram
+direction TB
+
+class EtatServeur {
+  +utilisation_cpu : float
+  +utilisation_ram : float
+  +espace_disque : float
+  +charge_upload : float
+  +etat_reseau : string
+}
+
+class PanelModeration {
+  +notifications : list
+  +signalements : list
+}
+
+EtatServeur --> PanelModeration : "informe état système"

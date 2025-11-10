@@ -1,0 +1,15 @@
+classDiagram
+direction TB
+
+class OCRProcessor {
+  +chemin_fichiers : string
+  +format_entree : string
+  +format_sortie : string
+}
+
+class OCRExtractor {
+  +modele_LLM : string
+  +version : string
+}
+
+OCRProcessor --> OCRExtractor : "utilise pour extraction"

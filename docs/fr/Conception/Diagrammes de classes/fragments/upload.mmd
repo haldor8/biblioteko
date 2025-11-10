@@ -1,0 +1,35 @@
+classDiagram
+direction TB
+
+class Upload {
+  +id : string
+  +date_televersement : datetime
+  +chemin_temporaire : string
+  +statut : string
+}
+
+class UtilisateurAuthentifie {
+  +id : string
+  +nom_utilisateur : string
+  +connecte : bool
+}
+
+class SystemeFiltrageContenu {
+  +liste_noire : list
+  +api_externes : list
+  +chemin_local_blacklist : string
+}
+
+class Livre {
+  +identifiant : string
+}
+
+class TraitementOCR {
+  +modele_utilise : string
+  +version : string
+}
+
+UtilisateurAuthentifie --> Upload : "effectue"
+Upload --> SystemeFiltrageContenu : "analyse contenu"
+Upload --> Livre : "crée ou met à jour"
+TraitementOCR --> Upload : "traite fichiers uploadés"

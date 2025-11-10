@@ -1,0 +1,30 @@
+classDiagram
+direction TB
+
+class SystemeFiltrageContenu {
+  +liste_noire : list
+  +api_externes : list
+  +chemin_local_blacklist : string
+}
+
+class Logs {
+  +chemin_fichier : string
+  +type_evenement : string
+  +horodatage : datetime
+  +details : string
+}
+
+class PanelModeration {
+  +notifications : list
+  +signalements : list
+}
+
+class Administrateur {
+  +id : string
+  +niveau_acces : string
+}
+
+SystemeFiltrageContenu --> Logs : "consigne violations"
+Administrateur --> SystemeFiltrageContenu : "alimente blacklist"
+PanelModeration --> Logs : "affiche signalements"
+Administrateur --> PanelModeration : "supervise"

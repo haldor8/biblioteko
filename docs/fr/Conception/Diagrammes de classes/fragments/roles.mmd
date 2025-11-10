@@ -1,0 +1,23 @@
+classDiagram
+direction TB
+
+class Utilisateur {
+  +id : string
+  +nom_utilisateur : string
+  +email : string
+  +mdp_chiffre : string
+  +reputation : int
+  +role : string
+}
+
+class UtilisateurAuthentifie {
+  +franceconnect_id : string
+  +connecte : bool
+}
+
+class Administrateur {
+  +niveau_acces : string
+}
+
+UtilisateurAuthentifie --|> Utilisateur
+Administrateur --|> UtilisateurAuthentifie
