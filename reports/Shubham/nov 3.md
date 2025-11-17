@@ -17,4 +17,4 @@ Worked on the Scenarios.
 
 Worked on UML diagram. 
 
-Worked on the global class diagram. 
+Worked on the global class diagram.
