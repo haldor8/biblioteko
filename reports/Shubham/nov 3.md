@@ -18,3 +18,7 @@ Worked on the Scenarios.
 Worked on UML diagram. 
 
 Worked on the global class diagram.
+
+Found this website: https://www.copyright.gov/public-records/
+
+It allows people to search copyright registration and recordation records maintained by the Copyright Office
