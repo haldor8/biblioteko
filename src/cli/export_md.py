@@ -114,7 +114,7 @@ class MarkdownExporter:
 
     def __init__(self, engine="gemini"):
         self.formatter = MarkdownFormatter(engine)
-        self.output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data/scans"))
+        self.output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data/sequestre/scans"))
         os.makedirs(self.output_folder, exist_ok=True)
 
     def export_file(self, input_file: str):
