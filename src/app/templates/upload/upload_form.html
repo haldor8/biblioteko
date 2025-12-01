@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Upload fichier</title>
+  </head>
+  <body>
+    <h1>Uploader un fichier</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul>
+      {% for category, msg in messages %}
+      <li><strong>{{ category }}:</strong> {{ msg }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <form
+      action="{{ url_for('upload.upload_submit') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <label for="file">Choisir un fichier :</label><br />
+      <input type="file" name="file" id="file" required /><br /><br />
+
+      <button type="submit">Uploader</button>
+    </form>
+  </body>
+</html>
