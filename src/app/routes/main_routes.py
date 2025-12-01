@@ -9,3 +9,6 @@ def index():
 @main.route("/hello/<name>")
 def hello(name):
     return f"Bonjour, {name}!"
+
+from app.routes.upload.routes import upload
+main.register_blueprint(upload, url_prefix="/upload")
