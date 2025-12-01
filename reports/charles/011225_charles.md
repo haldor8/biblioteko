@@ -65,3 +65,10 @@ Avec ce contenu :
 ...
 ```
 
+# Travail réalisé
+
+Pour ma part j'ai commencé l'upload de fichiers et j'ai commencé à fouiller où mettre les points de tests pour vérifier les droits d'auteur etc.
+
+# Travail à faire
+
+Créer un formulaire pour lancer l'OCR et l'export en markdown depuis un LLM.
