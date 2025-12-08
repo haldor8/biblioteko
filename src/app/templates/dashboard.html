@@ -89,7 +89,7 @@
                 View
               </button>
 
-              <a href="{{ url_for('views.book_detail_view', book_id=s.get('book_id')) }}" class="btn btn-sm btn-outline-secondary">Open reader</a>
+              <a href="{{ url_for('views.book_files_list_view', book_id=s.get('book_id')) }}" class="btn btn-sm btn-outline-secondary">Open reader</a>
             </div>
           </div>
 
@@ -110,7 +110,7 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <a href="{{ url_for('views.book_detail_view', book_id=s.get('book_id')) }}" class="btn btn-sm btn-primary">Open reader</a>
+                  <a href="{{ url_for('views.book_files_list_view', book_id=s.get('book_id')) }}" class="btn btn-sm btn-primary">Open reader</a>
                 </div>
               </div>
             </div>

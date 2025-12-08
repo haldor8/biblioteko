@@ -10,26 +10,10 @@ views_bp = Blueprint("views", __name__, template_folder="templates")
 # helper directory locators
 # -----------------------
 
-def _package_dir() -> Path:
-    return Path(__file__).resolve().parent
-
 def _books_dir() -> Path:
     # locate book md files flexibly
     repo_root = Path(current_app.root_path).parent  # /repo/src/app -> /repo
-
-    # common directories where your books may be saved
-    candidates = [
-        repo_root / "data" / "books",
-        repo_root / "data" / "scans",
-        _package_dir() / "books",
-    ]
-
-    for c in candidates:
-        if c.exists():
-            return c
-
-    return _package_dir() / "books"
-
+    return repo_root.parent/ "data" / "sequestre" / "scans"
 
 def _read_lines(path):
     try:
@@ -94,52 +78,80 @@ def home_view():
     books = getAllBooks()
     return render_template("home.html", books_list=books)
 
-
 @views_bp.route("/books")
 def books_view():
     books = getAllBooks()
-    return render_template("books.html", books_list=books)
+    return render_template("library/books.html", books_list=books)
 
 
-@views_bp.route("/book/<int:book_id>")
-def book_detail_view(book_id):
+@views_bp.route("/book/<int:book_id>/files")
+def book_files_list_view(book_id):
     books = getAllBooks()
     book = next((b for b in books if b["book_id"] == book_id), None)
-
     if not book:
         abort(404)
 
     folder = book["title"]
     folder_path = _books_dir() / folder
-    pages = []
+    files = []
 
     if folder_path.exists():
-        md_files = sorted([f for f in os.listdir(folder_path) if f.endswith(".md")])
+        for f in sorted(os.listdir(folder_path)):
+            file_path = folder_path / f
+            if file_path.is_file():
+                files.append({
+                    "filename": f,
+                    "size": file_path.stat().st_size
+                })
 
-        for md in md_files:
-            md_path = folder_path / md
-            lines = _read_lines(md_path)
+    return render_template(
+        "library/bookfiles.html",
+        book=book,
+        files=files,
+        folder=folder
+    )
 
-            delimiter = 0
-            output_lines = []
+@views_bp.route("/book/<int:book_id>/files/<path:filename>")
+def book_file_detail_view(book_id, filename):
+    books = getAllBooks()
+    book = next((b for b in books if b["book_id"] == book_id), None)
+    if not book:
+        abort(404)
 
-            for line in lines:
-                if line.strip() == "---":
-                    delimiter += 1
-                    continue
-                if delimiter >= 2:
-                    output_lines.append(line.rstrip())
+    folder = book["title"]
+    folder_path = _books_dir() / folder
+    file_path = folder_path / filename
 
-            pages.append({
-                "filename": md,
-                "content": "\n".join(output_lines).strip()
-            })
+    if not file_path.exists() or not file_path.is_file():
+        abort(404)
 
-    book["pages"] = pages
-    full_text = "\n\n".join(p["content"] for p in pages)
+    with open(file_path, encoding="utf-8") as f:
+        file_content = f.read()
 
-    return render_template("bookdetails.html", book=book, folder=folder, full_text=full_text)
+    # Get list of all files for next/prev navigation
+    files = []
+    if folder_path.exists():
+        for f in sorted(os.listdir(folder_path)):
+            file_p = folder_path / f
+            if file_p.is_file():
+                files.append(f)
 
+    # Find current file index
+    current_index = files.index(filename) if filename in files else 0
+    prev_file = files[current_index - 1] if current_index > 0 else None
+    next_file = files[current_index + 1] if current_index < len(files) - 1 else None
+
+    return render_template(
+        "library/bookfiledetail.html",
+        book=book,
+        folder=folder,
+        filename=filename,
+        file_content=file_content,
+        prev_file=prev_file,
+        next_file=next_file,
+        current_index=current_index,
+        total_files=len(files)
+    )
 
 @views_bp.route("/dashboard")
 def dashboard_view():

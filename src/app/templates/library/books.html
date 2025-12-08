@@ -9,7 +9,7 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">
-              <a href="{{ url_for('views.book_detail_view', book_id=book['book_id']) }}" class="text-decoration-none">
+              <a href="{{ url_for('views.book_files_list_view', book_id=book.book_id) }}" class="text-decoration-none">
                 {{ book['title'] }}
               </a>
             </h5>
@@ -17,7 +17,8 @@
             <p class="card-text">Total Pages: <span>{{ book.get('page_count', 0) }}</span></p>
             <p class="card-text">ID: <span>{{ book.get('book_id', 'N/A') }}</span></p>
 
-            <p class="card-text text-muted">
+            <small class="text-muted d-block mb-2">Preview</small>
+            <p class="card-text text-muted" style="background-color: #f8f9fa; padding: 10px; border-radius: 4px;">
               {% if book.get('preview') %}
                 {{ book['preview'] }}
               {% else %}
@@ -25,9 +26,9 @@
               {% endif %}
             </p>
 
-            <div class="d-flex gap-2 mt-3">
-              <a href="{{ url_for('views.book_detail_view', book_id=book['book_id']) }}" class="btn btn-outline-primary">
-                View Book
+             <div class="d-flex gap-2 mt-3">
+              <a href="{{ url_for('views.book_files_list_view', book_id=book['book_id']) }}" class="btn btn-outline-primary">
+                View Details
               </a>
 
               {% if book.get('pdf_file') %}
