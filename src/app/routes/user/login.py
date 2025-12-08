@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 import json
 import os
 from argon2 import PasswordHasher, exceptions
@@ -7,7 +7,7 @@ login = Blueprint("login", __name__, template_folder="../../templates/user")
 
 def load_users():
     """Charge le fichier JSON contenant les utilisateurs."""
-    file_path = os.path.join(os.path.dirname(__file__), "..", "users.json")
+    file_path = os.path.join(os.path.dirname(__file__), "users.json")
 
     with open(file_path, "r") as f:
         data = json.load(f)
@@ -20,10 +20,7 @@ def login_page():
         ph = PasswordHasher()
         username = request.form.get("username")
         password = request.form.get("password")
-
-
         users = load_users()
-
         # Vérification
         for user in users:
             if user["username"] == username:
@@ -31,6 +28,8 @@ def login_page():
 
                 try:
                     ph.verify(stored_hash, password)
+                    session['user_id'] = user["id"]
+                    session['username'] = user['username']
                     return f"Bienvenue {username} — authentification réussie !"
                 except exceptions.VerifyMismatchError:
                     return render_template("login.html", error="Mot de passe incorrect.")
@@ -41,5 +40,3 @@ def login_page():
         return render_template("login.html", error="Utilisateur introuvable.")
 
     return render_template("login.html")
-
-
