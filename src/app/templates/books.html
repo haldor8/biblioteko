@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Books</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for book in books_list %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{{ url_for('views.book_detail_view', book_id=book['book_id']) }}" class="text-decoration-none">
+                {{ book['title'] }}
+              </a>
+            </h5>
+
+            <p class="card-text">Total Pages: <span>{{ book.get('page_count', 0) }}</span></p>
+            <p class="card-text">ID: <span>{{ book.get('book_id', 'N/A') }}</span></p>
+
+            <p class="card-text text-muted">
+              {% if book.get('preview') %}
+                {{ book['preview'] }}
+              {% else %}
+                No preview available.
+              {% endif %}
+            </p>
+
+            <div class="d-flex gap-2 mt-3">
+              <a href="{{ url_for('views.book_detail_view', book_id=book['book_id']) }}" class="btn btn-outline-primary">
+                View Book
+              </a>
+
+              {% if book.get('pdf_file') %}
+                <a href="{{ book['pdf_file'] }}" target="_blank" class="btn btn-outline-secondary">
+                  View Scanned Copy
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

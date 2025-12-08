@@ -4,11 +4,13 @@ def create_app():
     app = Flask(__name__)
 
     # Import des Blueprints
-    from app.routes.main_routes import main
+    
     from app.api.api_routes import api
+    from app.views import views_bp   # <-- your converted code
 
     # Enregistrement des Blueprints
-    app.register_blueprint(main)
+    
     app.register_blueprint(api, url_prefix="/api")
+    app.register_blueprint(views_bp)  # <-- register your Pyramid features
 
     return app
