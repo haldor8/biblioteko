@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
 direction LR
 
@@ -107,3 +108,4 @@ EtatServeur --> PanelModeration : "informe état système"
 Utilisateur --> Livre : "lit"
 Administrateur --> PanelModeration : "supervise"
 Administrateur --> Logs : "consulte"
+```
