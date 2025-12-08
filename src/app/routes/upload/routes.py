@@ -23,8 +23,8 @@ def upload_submit():
     try:
         filepath, filename = save_uploaded_file(file)
         flash(f"Fichier '{filename}' uploadé avec succès !", "success")
-        return redirect(url_for("upload.upload_form"))
+        return redirect(url_for("main.upload.upload_form"))
 
     except Exception as e:
         flash(str(e), "error")
-        return redirect(url_for("upload.upload_form"))
+        return redirect(url_for("main.upload.upload_form"))
