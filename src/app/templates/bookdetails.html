@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-main">
+  {% if book %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/books">Books</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+      </ol>
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">{{ book.title }}</h2>
+      <a class="btn btn-outline-secondary" href="{{ book.pdf_file }}" target="_blank">View scanned copy</a>
+    </div>
+
+    <p>
+      <small>Folder: <span>{{ folder }}</span></small><br/>
+      <small>Total Pages: <span>{{ book.page_count or (book.pages|length if book.pages is defined) or 0 }}</span></small>
+    </p>
+
+    <hr/>
+
+    <div id="page-viewer">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <button class="btn btn-sm btn-outline-primary" id="prevPageBtn" onclick="prevPage()" disabled>Prev</button>
+        <span id="pageLabel">Page 1</span>
+        <button class="btn btn-sm btn-outline-primary" id="nextPageBtn" onclick="nextPage()">Next</button>
+      </div>
+
+      <pre id="pageContent" class="border rounded p-3 bg-light" style="min-height:200px;">Loading...</pre>
+    </div>
+
+    <hr/>
+
+    <script type="text/javascript">
+      // Build pages array from server-side data (safe JSON serialization)
+      var pages = {{ book.pages | tojson | safe }} || [];
+      var currentPage = 0;
+
+      function updatePage() {
+        if (pages.length > 0) {
+          // pages[currentPage].content may contain newlines; use textContent to render safely
+          document.getElementById('pageContent').textContent = pages[currentPage].content || "";
+          document.getElementById('pageLabel').textContent = "Page " + (currentPage + 1) + " of " + pages.length;
+          document.getElementById('prevPageBtn').disabled = currentPage === 0;
+          document.getElementById('nextPageBtn').disabled = currentPage === pages.length - 1;
+        } else {
+          document.getElementById('pageContent').textContent = "No pages found.";
+          document.getElementById('prevPageBtn').disabled = true;
+          document.getElementById('nextPageBtn').disabled = true;
+          document.getElementById('pageLabel').textContent = "";
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 0) {
+          currentPage--;
+          updatePage();
+        }
+      }
+
+      function nextPage() {
+        if (currentPage < pages.length - 1) {
+          currentPage++;
+          updatePage();
+        }
+      }
+
+      // Initialize on page load
+      window.addEventListener('load', updatePage);
+    </script>
+
+  {% else %}
+    <h3>Not found</h3>
+    <p>Book not found.</p>
+    <a class="btn btn-secondary" href="/books">Back to books</a>
+  {% endif %}
+</div>
+{% endblock %}

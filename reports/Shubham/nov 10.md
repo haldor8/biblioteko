@@ -1,0 +1,4 @@
+We worked on the class diagram, activity diagram, and sequence diagram for some of the scenarios that are considered critical. These scenarios include login and sessions, moderating a digitized work, renting a copyrighted work, and handling the upload of inappropriate content.
+
+We chose these scenarios because they are some of the most important and sensitive parts of the system. Moderating a digitized work, renting a copyrighted work, and handling the upload of inappropriate content all involve actions that can affect user safety, legal responsibilities, and the overall reliability of the platform. These scenarios require careful design to prevent misuse, protect user data, and make sure the system follows copyright and content guidelines. By working on these critical scenarios first, we can build a strong and secure foundation for the rest of the system.
+

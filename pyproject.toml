@@ -19,6 +19,8 @@ google = "^3.0.0"
 fitz = "^0.0.1.dev2"
 mistralai = "^1.9.10"
 pymupdf = "^1.26.4"
+dependency = "^0.0.3"
+argon2-cffi = "^25.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
