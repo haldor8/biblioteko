@@ -32,6 +32,15 @@
       "role": "user",
       "createdAt": "2025-12-08T13:57:08.347311Z",
       "active": true
+    },
+    {
+      "id": 5,
+      "username": "azer",
+      "email": "azer@gmail.com",
+      "password": "$argon2id$v=19$m=65536,t=3,p=4$RyoTsNZJhRcSXvinDVf/0w$b2c5yhvhT3UxID5BqXeHO1p5mehmoz9XsGsX4rfgWRU",
+      "role": "user",
+      "createdAt": "2025-12-14T21:26:03.723633Z",
+      "active": true
     }
   ]
 }

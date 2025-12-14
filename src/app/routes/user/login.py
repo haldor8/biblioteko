@@ -30,7 +30,7 @@ def login_page():
                     ph.verify(stored_hash, password)
                     session['user_id'] = user["id"]
                     session['username'] = user['username']
-                    return f"Bienvenue {username} — authentification réussie !"
+                    return redirect("/")
                 except exceptions.VerifyMismatchError:
                     return render_template("login.html", error="Mot de passe incorrect.")
                 except Exception as e:
