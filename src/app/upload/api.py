@@ -6,6 +6,21 @@ from app.upload.pdf_utils import pdf_to_images
 from cli.moderate import check_book_copyright
 # from admin_module import flag_book_for_review
 
+import subprocess
+import sys
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[2]  # src/
+CLI_DIR = BASE_DIR / "cli"
+
+OCR_SCRIPT = CLI_DIR / "ocr.py"
+EXPORT_MD_SCRIPT = CLI_DIR / "export_md.py"
+
+RAW_OCR_FILES_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../../data/uploads/temp")
+)
+
 BASE_UPLOAD_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../../../data/uploads/raw_files")
 )
@@ -72,7 +87,28 @@ def save_uploaded_file(file):
     file.save(filepath)
 
     if not is_copyrighted:
-        # Begin text extraction and stuff
-        pass
+    # Begin text extraction and stuff
+        subprocess.run(
+            [
+                sys.executable,
+                str(OCR_SCRIPT),
+                filepath,          # PDF ou image uploadée
+                "--limit", "5",
+                "--engine", "gemini",
+            ],
+            check=True
+        )
+
+        subprocess.run(
+            [
+                sys.executable,
+                str(EXPORT_MD_SCRIPT),
+                "--folder",
+                RAW_OCR_FILES_DIR,
+            ],
+            check=True
+        )
+
+
 
     return filepath, filename
