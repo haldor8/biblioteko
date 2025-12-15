@@ -17,4 +17,4 @@ from app.routes.user.register import register
 from app.routes.user.logout import logout
 main.register_blueprint(login, url_prefix="/login")
 main.register_blueprint(register, url_prefix="/register")
-main.register_blueprint(register, url_prefix="/logout")
+main.register_blueprint(logout, url_prefix="/logout")

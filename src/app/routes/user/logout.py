@@ -1,9 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, session, redirect
 
 logout = Blueprint("logout", __name__, template_folder="../../templates/user")
 
 
-@logout.route("/logout")
-def logout():
+@logout.route("/")
+def logout_page():
     session.clear()
     return redirect("/")
