@@ -12,5 +12,12 @@
     "hashed_password": "...",
     "role" : "user",
     "reputation" : 200
+  },
+  {
+    "displayed_username": "srb",
+    "email" : "srb-user@gmail.com",
+    "hashed_password": "...",
+    "role" : "user",
+    "reputation" : 6
   }
 ]

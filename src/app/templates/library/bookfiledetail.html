@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('views.books_view') }}">Books</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('views.book_files_list_view', book_id=book.book_id) }}">{{ book.title }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('views.book_files_list_view', book_id=book.book_id) }}">Files</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ filename }}</li>
+  </ol>
+</nav>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">{{ filename }}</h2>
+    <span class="badge bg-secondary">{{ current_index + 1 }} of {{ total_files }}</span>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    {% if prev_file %}
+      <a href="{{ url_for('views.book_file_detail_view', book_id=book.book_id, filename=prev_file) }}" class="btn btn-outline-primary">
+        ← Prev
+      </a>
+    {% else %}
+      <button class="btn btn-outline-primary" disabled>← Prev</button>
+    {% endif %}
+
+    <span class="text-muted">{{ current_index + 1 }} / {{ total_files }}</span>
+
+    {% if next_file %}
+      <a href="{{ url_for('views.book_file_detail_view', book_id=book.book_id, filename=next_file) }}" class="btn btn-outline-primary">
+        Next →
+      </a>
+    {% else %}
+      <button class="btn btn-outline-primary" disabled>Next →</button>
+    {% endif %}
+  </div>
+
+  <pre style="background:#f8f9fa; padding:1em;">{{ file_content }}</pre>
+</div>
+{% endblock %}
