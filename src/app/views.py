@@ -3,6 +3,8 @@
 import os
 from pathlib import Path
 from flask import Blueprint, render_template, abort, current_app
+import json as jsonlib
+
 
 views_bp = Blueprint("views", __name__, template_folder="templates")
 
@@ -74,9 +76,9 @@ def getAllBooks():
 # -----------------------
 
 @views_bp.route("/")
-def home_view():
+def index_view():
     books = getAllBooks()
-    return render_template("home.html", books_list=books)
+    return render_template("index.html", books_list=books)
 
 @views_bp.route("/books")
 def books_view():
@@ -153,50 +155,21 @@ def book_file_detail_view(book_id, filename):
         total_files=len(files)
     )
 
+
 @views_bp.route("/dashboard")
 def dashboard_view():
-    users = [
-        {"displayed_username": "shubham", "email": "shubam.rbhattarai@gmail.com", "role": "admin", "reputation": 120},
-        {"displayed_username": "bob", "email": "bob@example.com", "role": "user", "reputation": 45},
-    ]
+    project_root = Path(__file__).resolve().parents[2]
+    json_path = project_root / "data" / "userdat" / "user_list_example.json"
 
-    permanent_scans = [
-        {
-            "book_id": 101,
-            "title": "Invoice_2024.pdf",
-            "mtime": "2025-01-10 12:34",
-            "folder": "/scans/permanent",
-            "preview": "First lines of OCR text...",
-            "pages": [
-                {"filename": "page001.png", "content": "Page 1 text..."},
-                {"filename": "page002.png", "content": "Page 2 text..."},
-            ],
-        }
-    ]
-
-    temp_scans = [
-        {
-            "id": 201,
-            "filename": "upload_tmp_1.pdf",
-            "mtime": "2025-12-01 09:00",
-            "preview": "Temporary scan preview...",
-            "sections": [
-                ("Sec 1", "Content A"),
-                ("Sec 2", "Content B")
-            ],
-        }
-    ]
+    with open(json_path, "r", encoding="utf-8") as f:
+        users = jsonlib.load(f)
 
     stats = {
         "user_count": len(users),
-        "perm_count": len(permanent_scans),
-        "temp_count": len(temp_scans),
     }
 
     return render_template(
         "dashboard.html",
-        stats=stats,
         users=users,
-        permanent_scans=permanent_scans,
-        temp_scans=temp_scans,
+        stats=stats
     )
