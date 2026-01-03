@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('views.books_view') }}">Books</a></li>
+      <li class="breadcrumb-item"><a href="{{ url_for('views.book_files_list_view', book_id=book.book_id) }}">{{ book.title }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Files</li>
+  </ol>
+</nav>
+
+<div class="container mt-4">
+  <h2>Files in "{{ book.title }}"</h2>
+  <ul class="list-group">
+    {% for file in files %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{{ url_for('views.book_file_detail_view', book_id=book.book_id, filename=file.filename) }}">
+          {{ file.filename }}
+        </a>
+        <span class="badge bg-secondary">{{ file.size }} bytes</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
