@@ -16,13 +16,15 @@ The project focuses on:
 biblioteko/
 │
 ├── data/
-│   └── sequestre/
-│       └── scans/
-│           └── <book_name>/
-│               └── <book_name>_p<number>
-│
-├── uploads/
-│   └── raw_files/
+│   ├── sequestre/
+│   │   └── scans/
+│   │       └── <book_name>/
+│   │           └── <book_name>_p<number>
+│	├── uploads/
+│	│ 	├── temp/
+│   │ 	└── raw_files/
+│	└── userdat/
+│		└── user_list_example.json
 │
 ├── src/
 │   ├── app.py
@@ -39,6 +41,8 @@ biblioteko/
 │   └── cli/
 │       ├── ocr.py
 │       ├── export_md.py
+│       ├── moderate.py
+│       ├── log.py
 │       └── format_small_book.py
 │
 ├── poetry.lock
@@ -101,17 +105,24 @@ Unauthenticated users are redirected to the login page.
 
 The `src/cli/` directory contains command-line utilities for offline processing.
 
-### `ocr.py`
-- Sends scanned book pages to an LLM
+### ocr.py
+- Sends scanned book pages to a Large Language Model
 - Extracts raw text and metadata
 
-### `export_md.py`
-- Converts OCR output into structured Markdown
+### export_md.py
+- Converts OCR results into structured Markdown
 - Uses an LLM for formatting and cleanup
 
-### `format_small_book.py`
+### format_small_book.py
 - Image preprocessing utility
 - Cropping and zooming to improve OCR quality
+
+### moderate.py
+- Determines whether a book is likely copyrighted
+- Uses LLMs and public metadata sources
+
+### log.py
+- Centralized logging utility for CLI tools
 
 ---
 
