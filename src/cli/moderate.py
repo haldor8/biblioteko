@@ -210,7 +210,7 @@ def check_book_copyright(book_metadata: str):
     Log.write(f"Checking copyright status for: {book_title}")
 
     llm_checker = CopyrightLLMChecker()
-    api_checker = CopyrightGovChecker()
+    # api_checker = CopyrightGovChecker()
 
     # --- Step 1: LLM evaluation ---
     gemini_result, mistral_result = llm_checker.evaluate(book_metadata)
@@ -218,17 +218,20 @@ def check_book_copyright(book_metadata: str):
     Log.write(f"Gemini classification: {gemini_result}")
     Log.write(f"Mistral classification: {mistral_result}")
 
+    """ 
     # --- Step 2: Copyright.gov API ---
     api_data = api_checker.search(book_title)
     still_copyrighted = api_checker.is_still_copyrighted(api_data)
 
     Log.write(f"Copyright.gov says copyrighted: {still_copyrighted}")
+    
 
     # --- Final verdict ---
     if still_copyrighted:
         Log.write(f"FINAL VERDICT: '{book_title}' IS COPYRIGHTED.\n")
         return True
-
+    """
+    
     # If BOTH LLMs say likely copyrighted → trust majority
     llm_votes = [
         gemini_result.get("classification"),
