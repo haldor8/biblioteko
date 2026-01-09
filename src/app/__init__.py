@@ -13,7 +13,7 @@ def create_app():
     from app.routes.main_routes import main
     # Enregistrement des Blueprints
     
-    app.register_blueprint(main, url_prefix="/home")
+    app.register_blueprint(main, url_prefix="/")
     app.register_blueprint(api, url_prefix="/api")
     app.register_blueprint(views_bp)  # <-- register your Pyramid features
 
