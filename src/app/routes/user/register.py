@@ -7,7 +7,7 @@ from argon2 import PasswordHasher, exceptions
 
 register = Blueprint("register", __name__, template_folder="../../templates/user")
 
-USERS_FILE = Path(__file__).parent / "users.json"
+USERS_FILE = Path(__file__).parents[4] / "data/userdat/users.json"
 
 def load_users():
     if not USERS_FILE.exists():

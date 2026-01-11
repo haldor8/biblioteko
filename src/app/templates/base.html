@@ -52,7 +52,7 @@
             </div>
 
             <div>
-              <a href="/home/logout" class="btn btn-sm btn-warning" type="submit">Déconnexion</a>
+              <a href="/logout" class="btn btn-sm btn-warning" type="submit">Déconnexion</a>
             </div>
 
             <div class="d-flex align-items-center">
@@ -60,9 +60,12 @@
                 <input name="q" class="form-control form-control-sm" type="search" placeholder="Search files or users" aria-label="Search"/>
                 <button class="btn btn-sm btn-outline-primary" type="submit">Search</button>
               </form>
-              <div class="ms-3">
-                <a class="btn btn-sm btn-warning" href="/dashboard">Admin Dashboard</a>
-              </div>
+              {% if session.get("role") == "admin" %}
+                <div class="ms-3">
+                  <a class="btn btn-sm btn-warning" href="/admin/dashboard">Admin Dashboard</a>
+                </div>
+              {% endif %}
+
             </div>
           </div>
 

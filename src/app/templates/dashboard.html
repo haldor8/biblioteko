@@ -28,15 +28,14 @@
     <div class="table-responsive">
       <table class="table table-sm table-hover">
         <thead class="table-light">
-          <tr><th>Username</th><th>Email</th><th>Role</th><th>Reputation</th></tr>
+          <tr><th>Username</th><th>Email</th><th>Role</th></tr>
         </thead>
         <tbody>
           {% for u in users %}
           <tr>
-            <td>{{ u.get('displayed_username', '(no displayed_username)') }}</td>
+            <td>{{ u.get('username', '(no displayed_username)') }}</td>
             <td>{{ u.get('email', '(no email)') }}</td>
             <td><span class="badge bg-info text-dark">{{ u.get('role', '(no role)') }}</span></td>
-            <td>{{ u.get('reputation', '(no reputation)') }}</td>
           </tr>
           {% endfor %}
         </tbody>

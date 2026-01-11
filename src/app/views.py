@@ -1,5 +1,5 @@
 # src/app/views.py
-
+import json
 import os
 from pathlib import Path
 from flask import Blueprint, render_template, abort, current_app
@@ -156,13 +156,14 @@ def book_file_detail_view(book_id, filename):
     )
 
 
-@views_bp.route("/dashboard")
-def dashboard_view():
-    project_root = Path(__file__).resolve().parents[2]
-    json_path = project_root / "data" / "userdat" / "user_list_example.json"
+@views_bp.route("/admin/dashboard")
+def admin_dashboard_view():
+    file_path = Path(__file__).parents[2] / "data/userdat/users.json"
 
-    with open(json_path, "r", encoding="utf-8") as f:
-        users = jsonlib.load(f)
+    with open(file_path, "r") as f:
+        data = json.load(f)
+
+    users = data["users"]
 
     stats = {
         "user_count": len(users),

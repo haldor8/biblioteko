@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "qsdf",
+      "email": "qsdf@gmail.com",
+      "password": "$argon2id$v=19$m=65536,t=3,p=4$XctABrwqyY5bKEWM+jtbQw$JZMy6Pe8XJh+DFs8TI6FwWMjBCusm0DbHgSAh8YNZFQ",
+      "role": "admin",
+      "createdAt": "2026-01-11T19:17:17.228952Z",
+      "active": true
+    },
+    {
+      "id": 2,
+      "username": "toto",
+      "email": "toto@gmail.com",
+      "password": "$argon2id$v=19$m=65536,t=3,p=4$RunsykCAWYU9A7ykDXPctA$vLJhu4PD+uAELHGghi8E1DKPYXMtvPPlyC3XNiaka5E",
+      "role": "user",
+      "createdAt": "2026-01-11T20:03:16.498728Z",
+      "active": true
+    }
+  ]
+}

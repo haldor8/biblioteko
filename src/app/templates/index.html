@@ -15,7 +15,11 @@
       <div class="d-flex justify-content-between">
         <a href="{{ url_for('views.books_view') }}" class="btn btn-primary flex-fill mx-2">Browse Books</a>
         <a href="/upload" class="btn btn-success flex-fill mx-2">Upload a Book?</a>
-        <a href="{{ url_for('views.dashboard_view') }}" class="btn btn-secondary flex-fill mx-2">Admin Dashboard</a>
+
+        {% if session.get("role") == "admin" %}
+            <a href="{{ url_for('views.admin_dashboard_view') }}" class="btn btn-secondary flex-fill mx-2">Admin Dashboard</a>
+        {% endif %}
+
       </div>
     </div>
   </div>
